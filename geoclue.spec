@@ -4,30 +4,38 @@
 #
 Name     : geoclue
 Version  : 2.4.6
-Release  : 2
+Release  : 3
 URL      : https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.6.tar.xz
 Source0  : https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.6.tar.xz
 Summary  : A convenience library to interact with Geoclue service
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
+Requires: geoclue-data
 Requires: geoclue-lib
 Requires: geoclue-bin
-Requires: geoclue-data
 Requires: geoclue-config
+BuildRequires : automake
+BuildRequires : automake-dev
 BuildRequires : desktop-file-utils
 BuildRequires : docbook-xml
 BuildRequires : gettext
+BuildRequires : gettext-bin
 BuildRequires : gobject-introspection-dev
 BuildRequires : gtk-doc
 BuildRequires : gtk-doc-dev
 BuildRequires : intltool
+BuildRequires : libtool
+BuildRequires : libtool-dev
 BuildRequires : libxslt-bin
+BuildRequires : m4
 BuildRequires : perl(XML::Parser)
+BuildRequires : pkg-config-dev
 BuildRequires : pkgconfig(glib-2.0)
 BuildRequires : pkgconfig(json-glib-1.0)
 BuildRequires : pkgconfig(libsoup-2.4)
 BuildRequires : pkgconfig(systemd)
 BuildRequires : systemd-dev
+Patch1: 0001-Support-a-stateless-configuration.patch
 
 %description
 GeoClue: The Geoinformation Service
@@ -85,11 +93,12 @@ lib components for the geoclue package.
 
 %prep
 %setup -q -n geoclue-2.4.6
+%patch1 -p1
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1492007115
-%configure --disable-static --disable-3g-source --disable-cdma-source --disable-modem-gps-source --disable-nmea-source --with-dbus-sys-dir=/usr/share/dbus-1/system.d
+export SOURCE_DATE_EPOCH=1492013846
+%reconfigure --disable-static --disable-3g-source --disable-cdma-source --disable-modem-gps-source --disable-nmea-source --with-dbus-sys-dir=/usr/share/dbus-1/system.d
 make V=1  %{?_smp_mflags}
 
 %check
@@ -100,7 +109,7 @@ export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1492007115
+export SOURCE_DATE_EPOCH=1492013846
 rm -rf %{buildroot}
 %make_install
 
@@ -129,6 +138,7 @@ rm -rf %{buildroot}
 /usr/share/dbus-1/system-services/org.freedesktop.GeoClue2.service
 /usr/share/dbus-1/system.d/org.freedesktop.GeoClue2.Agent.conf
 /usr/share/dbus-1/system.d/org.freedesktop.GeoClue2.conf
+/usr/share/defaults/geoclue/geoclue.conf
 /usr/share/gir-1.0/*.gir
 
 %files dev
