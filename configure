@@ -1,1 +1,1 @@
---disable-3g-source --disable-cdma-source --disable-modem-gps-source --disable-nmea-source
+--disable-3g-source --disable-cdma-source --disable-modem-gps-source --disable-nmea-source --with-dbus-sys-dir=/usr/share/dbus-1/system.d
