@@ -4,7 +4,7 @@
 #
 Name     : geoclue
 Version  : 2.4.6
-Release  : 1
+Release  : 2
 URL      : https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.6.tar.xz
 Source0  : https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.6.tar.xz
 Summary  : A convenience library to interact with Geoclue service
@@ -88,8 +88,8 @@ lib components for the geoclue package.
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1491752585
-%configure --disable-static --disable-3g-source --disable-cdma-source --disable-modem-gps-source --disable-nmea-source
+export SOURCE_DATE_EPOCH=1492007115
+%configure --disable-static --disable-3g-source --disable-cdma-source --disable-modem-gps-source --disable-nmea-source --with-dbus-sys-dir=/usr/share/dbus-1/system.d
 make V=1  %{?_smp_mflags}
 
 %check
@@ -100,7 +100,7 @@ export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1491752585
+export SOURCE_DATE_EPOCH=1492007115
 rm -rf %{buildroot}
 %make_install
 
@@ -127,6 +127,8 @@ rm -rf %{buildroot}
 /usr/share/dbus-1/interfaces/org.freedesktop.GeoClue2.Manager.xml
 /usr/share/dbus-1/interfaces/org.freedesktop.GeoClue2.xml
 /usr/share/dbus-1/system-services/org.freedesktop.GeoClue2.service
+/usr/share/dbus-1/system.d/org.freedesktop.GeoClue2.Agent.conf
+/usr/share/dbus-1/system.d/org.freedesktop.GeoClue2.conf
 /usr/share/gir-1.0/*.gir
 
 %files dev
