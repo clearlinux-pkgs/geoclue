@@ -4,7 +4,7 @@
 #
 Name     : geoclue
 Version  : 2.4.6
-Release  : 3
+Release  : 4
 URL      : https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.6.tar.xz
 Source0  : https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.6.tar.xz
 Summary  : A convenience library to interact with Geoclue service
@@ -96,8 +96,18 @@ lib components for the geoclue package.
 %patch1 -p1
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1492013846
+export SOURCE_DATE_EPOCH=1493435805
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
+export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
+export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
 %reconfigure --disable-static --disable-3g-source --disable-cdma-source --disable-modem-gps-source --disable-nmea-source --with-dbus-sys-dir=/usr/share/dbus-1/system.d
 make V=1  %{?_smp_mflags}
 
@@ -105,11 +115,11 @@ make V=1  %{?_smp_mflags}
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1492013846
+export SOURCE_DATE_EPOCH=1493435805
 rm -rf %{buildroot}
 %make_install
 
