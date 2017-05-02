@@ -4,7 +4,7 @@
 #
 Name     : geoclue
 Version  : 2.4.6
-Release  : 4
+Release  : 5
 URL      : https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.6.tar.xz
 Source0  : https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.6.tar.xz
 Summary  : A convenience library to interact with Geoclue service
