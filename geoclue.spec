@@ -4,7 +4,7 @@
 #
 Name     : geoclue
 Version  : 2.4.10
-Release  : 12
+Release  : 13
 URL      : https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.10.tar.xz
 Source0  : https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.10.tar.xz
 Summary  : A convenience library to interact with Geoclue service
@@ -102,7 +102,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1525365069
+export SOURCE_DATE_EPOCH=1526259169
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -121,7 +121,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1525365069
+export SOURCE_DATE_EPOCH=1526259169
 rm -rf %{buildroot}
 %make_install
 
