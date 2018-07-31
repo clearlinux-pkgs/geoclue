@@ -4,17 +4,18 @@
 #
 Name     : geoclue
 Version  : 2.4.11
-Release  : 14
+Release  : 16
 URL      : https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.11.tar.xz
 Source0  : https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.11.tar.xz
 Summary  : A convenience library to interact with Geoclue service
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
+Requires: geoclue-config
 Requires: geoclue-data
 Requires: geoclue-lib
 Requires: geoclue-bin
 Requires: geoclue-license
-Requires: geoclue-config
+BuildRequires : ModemManager-dev
 BuildRequires : desktop-file-utils
 BuildRequires : docbook-xml
 BuildRequires : gettext
@@ -34,6 +35,7 @@ BuildRequires : pkgconfig(libnotify)
 BuildRequires : pkgconfig(libsoup-2.4)
 BuildRequires : pkgconfig(systemd)
 BuildRequires : systemd-dev
+BuildRequires : vala
 Patch1: 0001-Support-a-stateless-configuration.patch
 
 %description
@@ -108,7 +110,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1533051591
+export SOURCE_DATE_EPOCH=1533052102
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -116,7 +118,7 @@ export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sect
 export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
 export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
 export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
-%reconfigure --disable-static --disable-3g-source --disable-cdma-source --disable-modem-gps-source --disable-nmea-source --with-dbus-sys-dir=/usr/share/dbus-1/system.d
+%reconfigure --disable-static --disable-cdma-source --disable-nmea-source --with-dbus-sys-dir=/usr/share/dbus-1/system.d
 make  %{?_smp_mflags}
 
 %check
@@ -127,7 +129,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1533051591
+export SOURCE_DATE_EPOCH=1533052102
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/geoclue
 cp COPYING %{buildroot}/usr/share/doc/geoclue/COPYING
