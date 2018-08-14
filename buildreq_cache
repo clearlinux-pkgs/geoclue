@@ -1,4 +1,4 @@
-2.4.11
-systemd-dev
-pkgconfig(systemd)
+2.4.12
 glibc-bin
+pkgconfig(systemd)
+systemd-dev
