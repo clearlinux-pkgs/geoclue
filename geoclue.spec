@@ -4,17 +4,17 @@
 #
 Name     : geoclue
 Version  : 2.4.12
-Release  : 17
+Release  : 18
 URL      : https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.12.tar.xz
 Source0  : https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.12.tar.xz
-Summary  : A convenience library to interact with Geoclue service
+Summary  : Modular geoinformation service built on the D-Bus messaging system
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
-Requires: geoclue-data
-Requires: geoclue-lib
-Requires: geoclue-bin
-Requires: geoclue-license
-Requires: geoclue-config
+Requires: geoclue-data = %{version}-%{release}
+Requires: geoclue-lib = %{version}-%{release}
+Requires: geoclue-libexec = %{version}-%{release}
+Requires: geoclue-license = %{version}-%{release}
+Requires: geoclue-services = %{version}-%{release}
 BuildRequires : ModemManager-dev
 BuildRequires : desktop-file-utils
 BuildRequires : docbook-xml
@@ -44,25 +44,6 @@ GeoClue: The Geoinformation Service
 GeoClue is a D-Bus geoinformation service. The goal of the Geoclue project is to
 make creating location-aware applications as simple as possible.
 
-%package bin
-Summary: bin components for the geoclue package.
-Group: Binaries
-Requires: geoclue-data
-Requires: geoclue-config
-Requires: geoclue-license
-
-%description bin
-bin components for the geoclue package.
-
-
-%package config
-Summary: config components for the geoclue package.
-Group: Default
-
-%description config
-config components for the geoclue package.
-
-
 %package data
 Summary: data components for the geoclue package.
 Group: Data
@@ -74,10 +55,10 @@ data components for the geoclue package.
 %package dev
 Summary: dev components for the geoclue package.
 Group: Development
-Requires: geoclue-lib
-Requires: geoclue-bin
-Requires: geoclue-data
-Provides: geoclue-devel
+Requires: geoclue-lib = %{version}-%{release}
+Requires: geoclue-data = %{version}-%{release}
+Provides: geoclue-devel = %{version}-%{release}
+Requires: geoclue = %{version}-%{release}
 
 %description dev
 dev components for the geoclue package.
@@ -86,11 +67,21 @@ dev components for the geoclue package.
 %package lib
 Summary: lib components for the geoclue package.
 Group: Libraries
-Requires: geoclue-data
-Requires: geoclue-license
+Requires: geoclue-data = %{version}-%{release}
+Requires: geoclue-libexec = %{version}-%{release}
+Requires: geoclue-license = %{version}-%{release}
 
 %description lib
 lib components for the geoclue package.
+
+
+%package libexec
+Summary: libexec components for the geoclue package.
+Group: Default
+Requires: geoclue-license = %{version}-%{release}
+
+%description libexec
+libexec components for the geoclue package.
 
 
 %package license
@@ -99,6 +90,14 @@ Group: Default
 
 %description license
 license components for the geoclue package.
+
+
+%package services
+Summary: services components for the geoclue package.
+Group: Systemd services
+
+%description services
+services components for the geoclue package.
 
 
 %prep
@@ -110,7 +109,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1534258883
+export SOURCE_DATE_EPOCH=1557086295
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -129,25 +128,17 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1534258883
+export SOURCE_DATE_EPOCH=1557086295
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/geoclue
-cp COPYING %{buildroot}/usr/share/doc/geoclue/COPYING
-cp COPYING.LIB %{buildroot}/usr/share/doc/geoclue/COPYING.LIB
+mkdir -p %{buildroot}/usr/share/package-licenses/geoclue
+cp COPYING %{buildroot}/usr/share/package-licenses/geoclue/COPYING
+cp COPYING.LIB %{buildroot}/usr/share/package-licenses/geoclue/COPYING.LIB
+cp docs/html/license.html %{buildroot}/usr/share/package-licenses/geoclue/docs_html_license.html
+cp docs/lib/html/license.html %{buildroot}/usr/share/package-licenses/geoclue/docs_lib_html_license.html
 %make_install
 
 %files
 %defattr(-,root,root,-)
-
-%files bin
-%defattr(-,root,root,-)
-/usr/libexec/geoclue
-/usr/libexec/geoclue-2.0/demos/agent
-/usr/libexec/geoclue-2.0/demos/where-am-i
-
-%files config
-%defattr(-,root,root,-)
-/usr/lib/systemd/system/geoclue.service
 
 %files data
 %defattr(-,root,root,-)
@@ -184,7 +175,19 @@ cp COPYING.LIB %{buildroot}/usr/share/doc/geoclue/COPYING.LIB
 /usr/lib64/libgeoclue-2.so.0
 /usr/lib64/libgeoclue-2.so.0.0.0
 
-%files license
+%files libexec
 %defattr(-,root,root,-)
-/usr/share/doc/geoclue/COPYING
-/usr/share/doc/geoclue/COPYING.LIB
+/usr/libexec/geoclue
+/usr/libexec/geoclue-2.0/demos/agent
+/usr/libexec/geoclue-2.0/demos/where-am-i
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/geoclue/COPYING
+/usr/share/package-licenses/geoclue/COPYING.LIB
+/usr/share/package-licenses/geoclue/docs_html_license.html
+/usr/share/package-licenses/geoclue/docs_lib_html_license.html
+
+%files services
+%defattr(-,root,root,-)
+/usr/lib/systemd/system/geoclue.service
