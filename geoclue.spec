@@ -4,7 +4,7 @@
 #
 Name     : geoclue
 Version  : 2.4.12
-Release  : 18
+Release  : 19
 URL      : https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.12.tar.xz
 Source0  : https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.12.tar.xz
 Summary  : Modular geoinformation service built on the D-Bus messaging system
@@ -109,7 +109,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1557086295
+export SOURCE_DATE_EPOCH=1557092937
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -128,7 +128,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1557086295
+export SOURCE_DATE_EPOCH=1557092937
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/geoclue
 cp COPYING %{buildroot}/usr/share/package-licenses/geoclue/COPYING
