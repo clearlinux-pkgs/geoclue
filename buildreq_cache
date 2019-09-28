@@ -1,4 +1,6 @@
-2.4.12
+2.5.4
 glibc-bin
+libnotify-dev
+pkgconfig(libnotify)
 pkgconfig(systemd)
 systemd-dev

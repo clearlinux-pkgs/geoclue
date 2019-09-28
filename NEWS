@@ -1,36 +1,94 @@
-2.4.12
-======
+2.5.4
+=====
 
-This release is mainly to provide a work-around for documentation build issue
-with 2.4.11 release tarball. It also fixes our library .pc file to respect the
-includedir option.
+- Plug a leak that becomes pretty huge after a while of running Geoclue.
+- Fix a buffer-overflow.
 
-Contributors to this release:
+2.5.3
+=====
 
-Bastien Nocera <hadess@hadess.net>
-Zeeshan Ali <zeenix@collabora.co.uk>
+- Fix a crash.
+- Support for GGA messages from more NMEA sources.
+- New API to allow automatic server side deletion of client.
+- Automatically delete client on server when using GClueSimple.
+- Avoid linking to system-installed library.
+- Fix library-only build.
+- Add manpage for geoclue.conf file.
+- Document usage and building of the project.
+- Other fixes and improvements.
 
-2.4.11
-======
+Contributors:
 
-- Don't crash on invalid accuracy level request.
-- The demo agent now watches for geoclue on D-Bus if it's not running already,
-  instead of giving up. This solves a race-condition, which makes geoclue
-  completely unusable.
-- Provide Vala bindings for libgeoclue.
-- Add gclue_client_get/set_time_threshold() to docs.
+Benjamin Berg <bberg@redhat.com>
+Inzamam <inzamam.15@cse.mrt.ac.lk>
+Sachin Chand <schand1997@gmail.com>
+Sumera Priyadarsini <sylphrenadin@gmail.com>
+Zeeshan Ali <zeeshanak@gnome.org>
+
+2.5.2
+=====
+
+- Scan for WiFi networks, greatly improving accuracy of WiFi source.
+- Allow multiple clients on the same D-Bus connection and add API for it. This
+  is mainly targetted for Flatpak location portal.
+- Add API for apps to explicitly delete their client objects. Long running
+  apps, like gnome-settings-daemon and Flatpak location portal, should use that
+  to ensure Geoclue knows when these apps are not actually using it and hence
+  it doesn't need to keep running needlessly.
+- Restore accidently removed, build of modem sources.
+- Update location on connectivity actually changing.
+- Try not spamming Mozilla Location Service.
+- Fix unexpected exit when non-active clients are connected.
+- Fix a check for system apps.
+- Use absolute paths for sysconfdir.
+- Fix links in docs.
+- More debug log.
+- A bunch of internal and/or non-functional fixes & improvements.
 
 Dependency-related changes:
 
-Require glib >= 2.44
+- Require glib >= 2.44.
 
-Contributors to this release:
+Contributors:
 
-Corentin Noël <corentin.noel@collabora.co.uk>
-Karl-Philipp Richter <krichter722@aol.de>
+Bastien Nocera <hadess@hadess.net>
+Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+Laurent Bigonville <bigon@bigon.be>
 Valentin Blot <freedesktop-devel@valentinblot.org>
+Will Thompson <will@willthompson.co.uk>
 Zeeshan Ali <zeenix@collabora.co.uk>
-Zeeshan Ali <zeenix@gmail.com>
+
+2.5.1
+=====
+
+- Fix libgeoclue ABI break in 2.5.0.
+- Use absolute paths for libexecdir.
+
+2.5.0
+=====
+
+Changes since 2.4.10 that were not included in subsequent 2.4.x releases as
+well:
+
+- Drop authorization for system (non-flatpak) apps.
+- Switch from autotools to meson build system.
+- Use WiFi-based geolocation for city level accuracy.
+- Provide Vala API.
+- Don't enable all warnings from C compiler by default.
+- No need to mark translatable strings in desktop files.
+
+Contributors:
+
+Bastien Nocera <hadess@hadess.net>
+Corentin Noël <corentin.noel@collabora.com>
+Emmanuele Bassi <ebassi@gnome.org>
+Karl-Philipp Richter <krichter722@aol.de>
+Laurent Bigonville <bigon@bigon.be>
+Nirbheek Chauhan <nirbheek@centricular.com>
+Ting-Wei Lan <lantw@src.gnome.org>
+Valentin Blot <freedesktop-devel@valentinblot.org>
+worldofpeace <worldofpeace@users.noreply.github.com>
+Zeeshan Ali <zeenix@collabora.co.uk>
 
 2.4.10
 ======

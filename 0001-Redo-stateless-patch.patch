@@ -1,0 +1,70 @@
+From 87809334783e49f70b072138a050c39185f45b26 Mon Sep 17 00:00:00 2001
+From: Auke Kok <auke-jan.h.kok@intel.com>
+Date: Fri, 27 Sep 2019 21:17:34 -0700
+Subject: [PATCH] Redo stateless patch
+
+---
+ data/meson.build   |  2 +-
+ src/gclue-config.c | 15 ++++++++++++---
+ 2 files changed, 13 insertions(+), 4 deletions(-)
+
+diff --git a/data/meson.build b/data/meson.build
+index c189753..7398663 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -7,7 +7,7 @@ if get_option('enable-backend')
+         conf.set('demo_agent', '')
+     endif
+ 
+-    conf_dir = join_paths(sysconfdir, 'geoclue')
++    conf_dir = join_paths(datadir, 'defaults', 'etc')
+     configure_file(output: 'geoclue.conf',
+                    input: 'geoclue.conf.in',
+                    configuration: conf,
+diff --git a/src/gclue-config.c b/src/gclue-config.c
+index d259c71..bf0e2f3 100644
+--- a/src/gclue-config.c
++++ b/src/gclue-config.c
+@@ -25,7 +25,9 @@
+ 
+ #include "gclue-config.h"
+ 
+-#define CONFIG_FILE_PATH SYSCONFDIR "/geoclue/geoclue.conf"
++#define CONFIG_FILE_PATH            SYSCONFDIR "/geoclue/geoclue.conf"
++#define DEFAULT_CONFIG_FILE_PATH    "/usr/share/defaults/geoclue/geoclue.conf"
++
+ 
+ /* This class will be responsible for fetching configuration. */
+ 
+@@ -301,6 +303,13 @@ static void
+ gclue_config_init (GClueConfig *config)
+ {
+         GError *error = NULL;
++        const gchar *conf_path = NULL;
++
++        if (g_file_test (CONFIG_FILE_PATH, G_FILE_TEST_EXISTS)) {
++                conf_path = CONFIG_FILE_PATH;
++        } else {
++                conf_path = DEFAULT_CONFIG_FILE_PATH;
++        }
+ 
+         config->priv =
+                 G_TYPE_INSTANCE_GET_PRIVATE (config,
+@@ -308,12 +317,12 @@ gclue_config_init (GClueConfig *config)
+                                             GClueConfigPrivate);
+         config->priv->key_file = g_key_file_new ();
+         g_key_file_load_from_file (config->priv->key_file,
+-                                   CONFIG_FILE_PATH,
++                                   conf_path,
+                                    0,
+                                    &error);
+         if (error != NULL) {
+                 g_critical ("Failed to load configuration file '%s': %s",
+-                            CONFIG_FILE_PATH, error->message);
++                            conf_path, error->message);
+                 g_error_free (error);
+ 
+                 return;
+-- 
+2.23.0
+
