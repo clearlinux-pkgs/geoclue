@@ -17,7 +17,7 @@ index c189753..7398663 100644
      endif
  
 -    conf_dir = join_paths(sysconfdir, 'geoclue')
-+    conf_dir = join_paths(datadir, 'defaults', 'etc')
++    conf_dir = join_paths(datadir, 'defaults', 'geoclue')
      configure_file(output: 'geoclue.conf',
                     input: 'geoclue.conf.in',
                     configuration: conf,

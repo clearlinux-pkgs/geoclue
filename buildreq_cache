@@ -4,3 +4,4 @@ libnotify-dev
 pkgconfig(libnotify)
 pkgconfig(systemd)
 systemd-dev
+util-linux

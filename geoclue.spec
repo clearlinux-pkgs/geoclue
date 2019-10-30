@@ -4,7 +4,7 @@
 #
 Name     : geoclue
 Version  : 2.5.5
-Release  : 21
+Release  : 22
 URL      : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.5.5/geoclue-2.5.5.tar.bz2
 Source0  : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.5.5/geoclue-2.5.5.tar.bz2
 Summary  : The Geoinformation Service
@@ -19,6 +19,7 @@ Requires: geoclue-services = %{version}-%{release}
 BuildRequires : ModemManager-dev
 BuildRequires : buildreq-meson
 BuildRequires : desktop-file-utils
+BuildRequires : glibc-bin
 BuildRequires : gobject-introspection-dev
 BuildRequires : intltool-dev
 BuildRequires : libnotify-dev
@@ -26,6 +27,8 @@ BuildRequires : pkgconfig(json-glib-1.0)
 BuildRequires : pkgconfig(libnotify)
 BuildRequires : pkgconfig(libsoup-2.4)
 BuildRequires : pkgconfig(systemd)
+BuildRequires : systemd-dev
+BuildRequires : util-linux
 BuildRequires : vala
 Patch1: 0001-Redo-stateless-patch.patch
 
@@ -108,7 +111,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1569881061
+export SOURCE_DATE_EPOCH=1572470845
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -125,8 +128,8 @@ ninja -v -C builddir
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/geoclue
-cp COPYING %{buildroot}/usr/share/package-licenses/geoclue/COPYING
-cp COPYING.LIB %{buildroot}/usr/share/package-licenses/geoclue/COPYING.LIB
+cp %{_builddir}/geoclue-2.5.5/COPYING %{buildroot}/usr/share/package-licenses/geoclue/9f36ee7d499d8aacee2830333120c184f7d0cef9
+cp %{_builddir}/geoclue-2.5.5/COPYING.LIB %{buildroot}/usr/share/package-licenses/geoclue/3ab14ae755fcd87385b7dc685e7e3dfb803b90b4
 DESTDIR=%{buildroot} ninja -C builddir install
 
 %files
@@ -145,7 +148,7 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/share/dbus-1/system-services/org.freedesktop.GeoClue2.service
 /usr/share/dbus-1/system.d/org.freedesktop.GeoClue2.Agent.conf
 /usr/share/dbus-1/system.d/org.freedesktop.GeoClue2.conf
-/usr/share/defaults/etc/geoclue.conf
+/usr/share/defaults/geoclue/geoclue.conf
 /usr/share/gir-1.0/*.gir
 /usr/share/vala/vapi/libgeoclue-2.0.deps
 /usr/share/vala/vapi/libgeoclue-2.0.vapi
@@ -177,8 +180,8 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/geoclue/COPYING
-/usr/share/package-licenses/geoclue/COPYING.LIB
+/usr/share/package-licenses/geoclue/3ab14ae755fcd87385b7dc685e7e3dfb803b90b4
+/usr/share/package-licenses/geoclue/9f36ee7d499d8aacee2830333120c184f7d0cef9
 
 %files man
 %defattr(0644,root,root,0755)
