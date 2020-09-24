@@ -4,7 +4,7 @@
 #
 Name     : geoclue
 Version  : 2.5.6
-Release  : 23
+Release  : 24
 URL      : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.5.6/geoclue-2.5.6.tar.bz2
 Source0  : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.5.6/geoclue-2.5.6.tar.bz2
 Summary  : The Geoinformation Service
