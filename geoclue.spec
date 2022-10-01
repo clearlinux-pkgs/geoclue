@@ -4,7 +4,7 @@
 #
 Name     : geoclue
 Version  : 2.6.0
-Release  : 26
+Release  : 27
 URL      : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.6.0/geoclue-2.6.0.tar.gz
 Source0  : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.6.0/geoclue-2.6.0.tar.gz
 Summary  : The Geoinformation Service
@@ -109,7 +109,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1645038632
+export SOURCE_DATE_EPOCH=1664645930
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -126,8 +126,8 @@ ninja -v -C builddir
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/geoclue
-cp %{_builddir}/geoclue-2.6.0/COPYING %{buildroot}/usr/share/package-licenses/geoclue/9f36ee7d499d8aacee2830333120c184f7d0cef9
-cp %{_builddir}/geoclue-2.6.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/geoclue/3ab14ae755fcd87385b7dc685e7e3dfb803b90b4
+cp %{_builddir}/geoclue-%{version}/COPYING %{buildroot}/usr/share/package-licenses/geoclue/9f36ee7d499d8aacee2830333120c184f7d0cef9 || :
+cp %{_builddir}/geoclue-%{version}/COPYING.LIB %{buildroot}/usr/share/package-licenses/geoclue/3ab14ae755fcd87385b7dc685e7e3dfb803b90b4 || :
 DESTDIR=%{buildroot} ninja -C builddir install
 
 %files
