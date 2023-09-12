@@ -5,12 +5,14 @@
 #
 Name     : geoclue
 Version  : 2.7.0
-Release  : 28
+Release  : 29
 URL      : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.7.0/geoclue-2.7.0.tar.gz
 Source0  : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.7.0/geoclue-2.7.0.tar.gz
+Source1  : geoclue.tmpfiles
 Summary  : The Geoinformation Service
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
+Requires: geoclue-config = %{version}-%{release}
 Requires: geoclue-data = %{version}-%{release}
 Requires: geoclue-lib = %{version}-%{release}
 Requires: geoclue-libexec = %{version}-%{release}
@@ -39,6 +41,14 @@ Geoclue: The Geoinformation Service
 ===================================
 Geoclue is a D-Bus geoinformation service. The goal of the Geoclue project
 is to make creating location-aware applications as simple as possible.
+
+%package config
+Summary: config components for the geoclue package.
+Group: Default
+
+%description config
+config components for the geoclue package.
+
 
 %package data
 Summary: data components for the geoclue package.
@@ -74,6 +84,7 @@ lib components for the geoclue package.
 %package libexec
 Summary: libexec components for the geoclue package.
 Group: Default
+Requires: geoclue-config = %{version}-%{release}
 Requires: geoclue-license = %{version}-%{release}
 
 %description libexec
@@ -115,7 +126,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1691700280
+export SOURCE_DATE_EPOCH=1694559852
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -135,9 +146,15 @@ mkdir -p %{buildroot}/usr/share/package-licenses/geoclue
 cp %{_builddir}/geoclue-%{version}/COPYING %{buildroot}/usr/share/package-licenses/geoclue/9f36ee7d499d8aacee2830333120c184f7d0cef9 || :
 cp %{_builddir}/geoclue-%{version}/COPYING.LIB %{buildroot}/usr/share/package-licenses/geoclue/3ab14ae755fcd87385b7dc685e7e3dfb803b90b4 || :
 DESTDIR=%{buildroot} ninja -C builddir install
+mkdir -p %{buildroot}/usr/lib/tmpfiles.d
+install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/geoclue.conf
 
 %files
 %defattr(-,root,root,-)
+
+%files config
+%defattr(-,root,root,-)
+/usr/lib/tmpfiles.d/geoclue.conf
 
 %files data
 %defattr(-,root,root,-)
