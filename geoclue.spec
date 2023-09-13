@@ -4,10 +4,10 @@
 # Using build pattern: meson
 #
 Name     : geoclue
-Version  : 2.7.0
-Release  : 29
-URL      : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.7.0/geoclue-2.7.0.tar.gz
-Source0  : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.7.0/geoclue-2.7.0.tar.gz
+Version  : 2.7.1
+Release  : 30
+URL      : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.7.1/geoclue-2.7.1.tar.gz
+Source0  : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.7.1/geoclue-2.7.1.tar.gz
 Source1  : geoclue.tmpfiles
 Summary  : The Geoinformation Service
 Group    : Development/Tools
@@ -117,8 +117,8 @@ services components for the geoclue package.
 
 
 %prep
-%setup -q -n geoclue-2.7.0
-cd %{_builddir}/geoclue-2.7.0
+%setup -q -n geoclue-2.7.1
+cd %{_builddir}/geoclue-2.7.1
 %patch -P 1 -p1
 
 %build
@@ -126,7 +126,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1694559852
+export SOURCE_DATE_EPOCH=1694618092
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
