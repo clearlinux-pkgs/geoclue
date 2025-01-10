@@ -7,7 +7,7 @@
 #
 Name     : geoclue
 Version  : 2.7.2
-Release  : 33
+Release  : 34
 URL      : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.7.2/geoclue-2.7.2.tar.gz
 Source0  : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.7.2/geoclue-2.7.2.tar.gz
 Source1  : geoclue.tmpfiles
@@ -36,7 +36,8 @@ BuildRequires : vala
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
-Patch1: 0001-Redo-stateless-patch.patch
+Patch1: backport-Web-Source-Set-User-Agent-on-Soup-Session-Constructi.patch
+Patch2: 0001-Redo-stateless-patch.patch
 
 %description
 Geoclue: The Geoinformation Service
@@ -122,6 +123,7 @@ services components for the geoclue package.
 %setup -q -n geoclue-2.7.2
 cd %{_builddir}/geoclue-2.7.2
 %patch -P 1 -p1
+%patch -P 2 -p1
 pushd ..
 cp -a geoclue-2.7.2 buildavx2
 popd
@@ -131,7 +133,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1736530609
+export SOURCE_DATE_EPOCH=1736532854
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
