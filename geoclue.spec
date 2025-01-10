@@ -7,7 +7,7 @@
 #
 Name     : geoclue
 Version  : 2.7.2
-Release  : 36
+Release  : 37
 URL      : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.7.2/geoclue-2.7.2.tar.gz
 Source0  : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.7.2/geoclue-2.7.2.tar.gz
 Summary  : A convenience library to interact with Geoclue service
@@ -122,7 +122,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1736549526
+export SOURCE_DATE_EPOCH=1736550935
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -141,13 +141,15 @@ export GOAMD64=v2
 meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dgtk-doc=false \
 -Dcdma-source=false \
 -Dnmea-source=false \
--Ddbus-sys-dir=/usr/share/dbus-1/system.d  builddir
+-Ddbus-sys-dir=/usr/share/dbus-1/system.d \
+-Ddefault-wifi-url=https://api.beacondb.net/v1/geolocate  builddir
 ninja -v -C builddir
 GOAMD64=v3
 CFLAGS="$CFLAGS -march=x86-64-v3 -Wl,-z,x86-64-v3 " CXXFLAGS="$CXXFLAGS -march=x86-64-v3 -Wl,-z,x86-64-v3 " LDFLAGS="$LDFLAGS -march=x86-64-v3 " meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dgtk-doc=false \
 -Dcdma-source=false \
 -Dnmea-source=false \
--Ddbus-sys-dir=/usr/share/dbus-1/system.d  builddiravx2
+-Ddbus-sys-dir=/usr/share/dbus-1/system.d \
+-Ddefault-wifi-url=https://api.beacondb.net/v1/geolocate  builddiravx2
 ninja -v -C builddiravx2
 
 %install

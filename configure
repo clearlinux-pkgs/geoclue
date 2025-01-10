@@ -2,3 +2,4 @@
 -Dcdma-source=false
 -Dnmea-source=false
 -Ddbus-sys-dir=/usr/share/dbus-1/system.d
+-Ddefault-wifi-url=https://api.beacondb.net/v1/geolocate
