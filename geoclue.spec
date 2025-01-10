@@ -7,14 +7,12 @@
 #
 Name     : geoclue
 Version  : 2.7.2
-Release  : 35
+Release  : 36
 URL      : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.7.2/geoclue-2.7.2.tar.gz
 Source0  : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.7.2/geoclue-2.7.2.tar.gz
-Source1  : geoclue.tmpfiles
 Summary  : A convenience library to interact with Geoclue service
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
-Requires: geoclue-config = %{version}-%{release}
 Requires: geoclue-data = %{version}-%{release}
 Requires: geoclue-lib = %{version}-%{release}
 Requires: geoclue-libexec = %{version}-%{release}
@@ -44,14 +42,6 @@ Geoclue: The Geoinformation Service
 ===================================
 Geoclue is a D-Bus geoinformation service. The goal of the Geoclue project
 is to make creating location-aware applications as simple as possible.
-
-%package config
-Summary: config components for the geoclue package.
-Group: Default
-
-%description config
-config components for the geoclue package.
-
 
 %package data
 Summary: data components for the geoclue package.
@@ -87,7 +77,6 @@ lib components for the geoclue package.
 %package libexec
 Summary: libexec components for the geoclue package.
 Group: Default
-Requires: geoclue-config = %{version}-%{release}
 Requires: geoclue-license = %{version}-%{release}
 
 %description libexec
@@ -133,7 +122,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1736549127
+export SOURCE_DATE_EPOCH=1736549526
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -184,8 +173,6 @@ GOAMD64=v3
 DESTDIR=%{buildroot}-v3 ninja -C builddiravx2 install
 GOAMD64=v2
 DESTDIR=%{buildroot} ninja -C builddir install
-mkdir -p %{buildroot}/usr/lib/tmpfiles.d
-install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/geoclue.conf
 ## install_append content
 mkdir -p %{buildroot}/usr/share/xdg/autostart
 mv %{buildroot}/etc/xdg/autostart/* %{buildroot}/usr/share/xdg/autostart/
@@ -194,10 +181,6 @@ mv %{buildroot}/etc/xdg/autostart/* %{buildroot}/usr/share/xdg/autostart/
 
 %files
 %defattr(-,root,root,-)
-
-%files config
-%defattr(-,root,root,-)
-/usr/lib/tmpfiles.d/geoclue.conf
 
 %files data
 %defattr(-,root,root,-)
