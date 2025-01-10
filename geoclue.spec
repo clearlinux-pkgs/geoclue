@@ -7,7 +7,7 @@
 #
 Name     : geoclue
 Version  : 2.7.2
-Release  : 34
+Release  : 35
 URL      : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.7.2/geoclue-2.7.2.tar.gz
 Source0  : https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/2.7.2/geoclue-2.7.2.tar.gz
 Source1  : geoclue.tmpfiles
@@ -133,7 +133,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1736532854
+export SOURCE_DATE_EPOCH=1736549127
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib

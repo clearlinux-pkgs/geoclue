@@ -1,12 +1,12 @@
-From 3e1b7fa38c424fc99a92ef2f38c9db45b9b480b4 Mon Sep 17 00:00:00 2001
+From 3ca1d9631ccca86c7d6db03d07c785a68868529a Mon Sep 17 00:00:00 2001
 From: "Brett T. Warden" <brett.t.warden@intel.com>
 Date: Thu, 10 Aug 2023 13:38:53 -0700
 Subject: [PATCH] Redo stateless patch
 
 ---
- data/meson.build   |  2 +-
- src/gclue-config.c | 10 +++++++++-
- 2 files changed, 10 insertions(+), 2 deletions(-)
+ data/meson.build   | 2 +-
+ src/gclue-config.c | 8 +++++++-
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/data/meson.build b/data/meson.build
 index b22ff558b2ae..0b48836a5935 100644
@@ -22,7 +22,7 @@ index b22ff558b2ae..0b48836a5935 100644
                     input: 'geoclue.conf.in',
                     configuration: conf,
 diff --git a/src/gclue-config.c b/src/gclue-config.c
-index acd600915ede..7a6f221e2761 100644
+index acd600915ede..411054f7e250 100644
 --- a/src/gclue-config.c
 +++ b/src/gclue-config.c
 @@ -27,6 +27,7 @@
@@ -33,26 +33,17 @@ index acd600915ede..7a6f221e2761 100644
  #define CONFIG_D_DIRECTORY SYSCONFDIR "/geoclue/conf.d/"
  
  /* This class will be responsible for fetching configuration. */
-@@ -529,6 +530,13 @@ gclue_config_init (GClueConfig *config)
-         g_autoptr(GArray) files = NULL;
-         char *name;
-         gsize i;
-+        const gchar *conf_path = NULL;
-+
-+        if (g_file_test (CONFIG_FILE_PATH, G_FILE_TEST_EXISTS)) {
-+                conf_path = CONFIG_FILE_PATH;
-+        } else {
-+                conf_path = DEFAULT_CONFIG_FILE_PATH;
-+        }
- 
-         config->priv = priv;
- 
-@@ -548,7 +556,7 @@ gclue_config_init (GClueConfig *config)
+@@ -548,7 +549,12 @@ gclue_config_init (GClueConfig *config)
  
          /* Load config file from default path, log all missing parameters */
          priv->key_file = g_key_file_new ();
 -        load_config_file (config, CONFIG_FILE_PATH);
-+        load_config_file (config, conf_path);
++        load_config_file (config, DEFAULT_CONFIG_FILE_PATH);
++
++        /* Load user-owned config file under sysconfdir, if it exists */
++        if (g_file_test (CONFIG_FILE_PATH, G_FILE_TEST_EXISTS)) {
++                load_config_file(config, CONFIG_FILE_PATH);
++        }
  
          /*
           * Apply config overwrites from conf.d style config files,
